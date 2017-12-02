@@ -33,27 +33,36 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-       int price = calculatePrice();
-       displayMessage(createOrderSummary(price));
+
+       EditText nameEditText = findViewById(R.id.name_view);
+       String userName = nameEditText.getText().toString();
+
+       CheckBox whippedCreamCheckBox = findViewById(R.id.whippedCreamCheckBox);
+       Boolean hasWhippedCream = whippedCreamCheckBox.isChecked();
+
+       CheckBox chocolateCheckBox = findViewById(R.id.chocolateCreamCheckBox);
+       Boolean hasChocolate = chocolateCheckBox.isChecked();
+
+       int price = calculatePrice(hasWhippedCream, hasChocolate);
+       displayMessage(createOrderSummary(userName, price, hasWhippedCream, hasChocolate));
     }
 
     /**
      * Calculates the price of the order.
      *@return total price
      */
-    private int calculatePrice() {
-        return quantity * 5;
+    private int calculatePrice(boolean hasWhippedCream, boolean hasChocolate) {
+        int basePrice = 5;
+        if (hasWhippedCream) {
+            basePrice += 1;
+        }
+        if (hasChocolate){
+            basePrice += 2;
+        }
+        return basePrice * quantity;
     }
 
-    private String createOrderSummary(int price){
-        CheckBox whippedCreamCheckBox = findViewById(R.id.whippedCreamCheckBox);
-        Boolean hasWhippedCream = whippedCreamCheckBox.isChecked();
-        CheckBox chocolateCheckBox = findViewById(R.id.chocolateCreamCheckBox);
-        Boolean hasChocolate = chocolateCheckBox.isChecked();
-
-        EditText nameEditText = findViewById(R.id.name_view);
-        String userName = nameEditText.getText().toString();
-
+    private String createOrderSummary(String userName, int price, boolean hasWhippedCream, boolean hasChocolate){
         String orderSummary = "Name: " + userName;
         orderSummary += "\nadd Whipped Cream? " + hasWhippedCream;
         orderSummary += "\nadd Chocolate? " + hasChocolate;
