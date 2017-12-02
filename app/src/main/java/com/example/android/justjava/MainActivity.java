@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -50,7 +51,10 @@ public class MainActivity extends AppCompatActivity {
         CheckBox chocolateCheckBox = findViewById(R.id.chocolateCreamCheckBox);
         Boolean hasChocolate = chocolateCheckBox.isChecked();
 
-        String orderSummary = "Name: Zenio";
+        EditText nameEditText = findViewById(R.id.name_view);
+        String userName = nameEditText.getText().toString();
+
+        String orderSummary = "Name: " + userName;
         orderSummary += "\nadd Whipped Cream? " + hasWhippedCream;
         orderSummary += "\nadd Chocolate? " + hasChocolate;
         orderSummary += "\nQuantity: " + quantity;
