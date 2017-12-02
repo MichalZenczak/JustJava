@@ -47,9 +47,12 @@ public class MainActivity extends AppCompatActivity {
     private String createOrderSummary(int price){
         CheckBox whippedCreamCheckBox = findViewById(R.id.whippedCreamCheckBox);
         Boolean hasWhippedCream = whippedCreamCheckBox.isChecked();
+        CheckBox chocolateCheckBox = findViewById(R.id.chocolateCreamCheckBox);
+        Boolean hasChocolate = chocolateCheckBox.isChecked();
 
         String orderSummary = "Name: Zenio";
-        orderSummary += "\nadd Whipped Cream: " + hasWhippedCream;
+        orderSummary += "\nadd Whipped Cream? " + hasWhippedCream;
+        orderSummary += "\nadd Chocolate? " + hasChocolate;
         orderSummary += "\nQuantity: " + quantity;
         orderSummary += "\nTotal: $" + price;
         orderSummary += "\nThank You!";
