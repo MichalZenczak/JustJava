@@ -46,16 +46,23 @@ public class MainActivity extends AppCompatActivity {
        Boolean hasChocolate = chocolateCheckBox.isChecked();
 
        int price = calculatePrice(hasWhippedCream, hasChocolate);
-       String order = createOrderSummary(userName, price, hasWhippedCream, hasChocolate);
 
-       Intent intent = new Intent(Intent.ACTION_SENDTO);
-       intent.setData(Uri.parse("mailto:")); // only email apps should handle this
-       intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.mail_title) + " " + userName);
-       intent.putExtra(Intent.EXTRA_TEXT, order);
+       if (userName.isEmpty()){
+           Toast.makeText(this, getString(R.string.empty_name_field), Toast.LENGTH_SHORT).show();
+           return;
+       }else{
+           String order = createOrderSummary(userName, price, hasWhippedCream, hasChocolate);
 
-       if (intent.resolveActivity(getPackageManager()) != null) {
-           startActivity(intent);
+           Intent intent = new Intent(Intent.ACTION_SENDTO);
+           intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+           intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.mail_title) + " " + userName);
+           intent.putExtra(Intent.EXTRA_TEXT, order);
+
+           if (intent.resolveActivity(getPackageManager()) != null) {
+               startActivity(intent);
+           }
        }
+
     }
 
     /**
@@ -76,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     private String createOrderSummary(String userName, int price, boolean hasWhippedCream, boolean hasChocolate){
         String orderSummary = getString(R.string.order_summary_name) + ": "+ userName;
         if (hasWhippedCream || hasChocolate){
-            orderSummary += "\n\nDodatki:";
+            orderSummary += "\n\n" + getString(R.string.toppings) + ":";
         }
         if (hasWhippedCream){
             orderSummary += "\n- " + getString(R.string.whipped_cream);

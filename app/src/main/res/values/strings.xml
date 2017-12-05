@@ -14,4 +14,5 @@
     <string name="max_coffees">"Dude! Take it easy! 100 is enough!"</string>
     <string name="min_coffees">You cannot order less than one coffee!</string>
     <string name="mail_title">Coffee order for</string>
+    <string name="empty_name_field">Please enter your name!</string>
 </resources>
