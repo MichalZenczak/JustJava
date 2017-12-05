@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Tylko Java</string>
+    <string name="thank_you">Dziękuję!</string>
+    <string name="toppings">Polewy</string>
+    <string name="whipped_cream">Bita Śmietana</string>
+    <string name="chocolate">Czekolada</string>
+    <string name="quantity_title">Ilość</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="quantity">2</string>
+    <string name="order_button">Zamów</string>
+    <string name="order_summary_name">Imię</string>
+    <string name="total_price">Należność</string>
+    <string name="max_coffees">Stary! Wyluzuj! Wystarczy Ci 100 kaw!</string>
+    <string name="min_coffees">Nie możesz zamówić mniej niż jedną kawe</string>
+    <string name="mail_title">Zamówienie dla</string>
+</resources>

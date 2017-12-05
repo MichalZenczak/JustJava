@@ -15,6 +15,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Currency;
+import java.util.Locale;
+
 /**
  * This app displays an order form to order coffee.
  */
@@ -47,8 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
        Intent intent = new Intent(Intent.ACTION_SENDTO);
        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
-       intent.putExtra(Intent.EXTRA_EMAIL, "zenczak.michal@gmail.com");
-       intent.putExtra(Intent.EXTRA_SUBJECT, "Coffee order summary");
+       intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.mail_title) + " " + userName);
        intent.putExtra(Intent.EXTRA_TEXT, order);
 
        if (intent.resolveActivity(getPackageManager()) != null) {
@@ -72,12 +74,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String createOrderSummary(String userName, int price, boolean hasWhippedCream, boolean hasChocolate){
-        String orderSummary = "Name: " + userName;
-        orderSummary += "\nadd Whipped Cream? " + hasWhippedCream;
-        orderSummary += "\nadd Chocolate? " + hasChocolate;
-        orderSummary += "\nQuantity: " + quantity;
-        orderSummary += "\nTotal: $" + price;
-        orderSummary += "\nThank You!";
+        String orderSummary = getString(R.string.order_summary_name) + ": "+ userName;
+        if (hasWhippedCream || hasChocolate){
+            orderSummary += "\n\nDodatki:";
+        }
+        if (hasWhippedCream){
+            orderSummary += "\n- " + getString(R.string.whipped_cream);
+        }
+        if (hasChocolate){
+            orderSummary += "\n- " + getString(R.string.chocolate);
+        }
+        orderSummary += "\n\n" + getString(R.string.quantity_title) + ": " + quantity;
+        Currency currency = Currency.getInstance(Locale.getDefault());
+        orderSummary += "\n" + getString(R.string.total_price)+  ": " + price + currency.getSymbol();
+        orderSummary += "\n\n" + getString(R.string.thank_you);
         return orderSummary;
     }
 
@@ -94,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void increment (View view){
         if (quantity == 100 ) {
-            Toast.makeText(this, "Dude! Take it easy! 100 is enough!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.max_coffees), Toast.LENGTH_SHORT).show();
             return;
         }
         quantity += 1;
@@ -106,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void decrement (View view) {
         if (quantity == 1){
-            Toast.makeText(this, "You cannot order less than one coffee!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.min_coffees), Toast.LENGTH_SHORT).show();
             return;
         }
         quantity -= 1;
